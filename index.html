@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odin Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <form action="">
+
+        <div class="title-field">
+            <label for="title-input">Title</label>
+            <input type="text" name="title-input" id="title">
+        </div>
+
+        <div class="author-field">
+            <label for="author-input">Author</label>
+            <input type="text" name="author" id="author-input" required>
+        </div>
+
+        <div class="pages-field">
+            <label for="pages-input">Pages</label>
+            <input type="number" name="pages-input" required>
+        </div>
+
+        <div class="read-field">
+            <input type="radio" name="read" id="read">
+            <label for="read">Have you already read it?</label>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+
+    <div class="books">
+        <div class="book-card">
+            <div class="book-img">Book Image</div>
+            <div class="book-info">
+                <h3 class="book-title">Title1</h3>
+                <div class="author">Author</div>
+                <div class="pages">9</div>
+                <div class="read">have not read yet.</div>
+            </div>
+        </div>
+
+        <div class="book-card">
+            <div class="book-img">Book Image</div>
+            <div class="book-info">
+                <h3 class="book-title">Title1</h3>
+                <div class="author">Author</div>
+                <div class="pages">9</div>
+                <div class="read">have not read</div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script src="script.js"></script>
+</body>
+</html>
