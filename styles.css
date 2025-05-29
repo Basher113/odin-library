@@ -80,6 +80,7 @@ form {
   padding: 1em;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   font-size: 1rem;
+  min-width: 30vw;
 }
 
 label {
@@ -117,7 +118,7 @@ input:focus {
 /* Books start */
 .books {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns:  1fr 1fr;
     gap: 2em;
 }
 
@@ -155,4 +156,10 @@ span {
   font-size: 0.9rem;
 }
 
-
+.delete-button {
+  border: none;
+  background-color: maroon;
+  color: white;
+  padding: 0.3em 1em;
+  cursor: pointer;
+}
