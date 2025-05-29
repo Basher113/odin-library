@@ -7,52 +7,35 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <form action="">
+    <div class="container">
+        <form action="">
 
-        <div class="title-field">
-            <label for="title-input">Title</label>
-            <input type="text" name="title-input" id="title">
-        </div>
-
-        <div class="author-field">
-            <label for="author-input">Author</label>
-            <input type="text" name="author" id="author-input" required>
-        </div>
-
-        <div class="pages-field">
-            <label for="pages-input">Pages</label>
-            <input type="number" name="pages-input" required>
-        </div>
-
-        <div class="read-field">
-            <input type="radio" name="read" id="read">
-            <label for="read">Have you already read it?</label>
-        </div>
-        <button type="submit">Add</button>
-    </form>
-
-    <div class="books">
-        <div class="book-card">
-            <div class="book-img">Book Image</div>
-            <div class="book-info">
-                <h3 class="book-title">Title1</h3>
-                <div class="author">Author</div>
-                <div class="pages">9</div>
-                <div class="read">have not read yet.</div>
+            <div class="title-field">
+                <label for="title-input">Title</label>
+                <input type="text" name="title" id="title">
             </div>
-        </div>
 
-        <div class="book-card">
-            <div class="book-img">Book Image</div>
-            <div class="book-info">
-                <h3 class="book-title">Title1</h3>
-                <div class="author">Author</div>
-                <div class="pages">9</div>
-                <div class="read">have not read</div>
+            <div class="author-field">
+                <label for="author-input">Author</label>
+                <input type="text" name="author" id="author-input" required>
             </div>
+
+            <div class="pages-field">
+                <label for="pages-input">Pages</label>
+                <input type="number" name="pages" id="pages-input" required>
+            </div>
+
+            <div class="read-field">
+                <input type="radio" name="read" id="read">
+                <label for="read">Have you already read it?</label>
+            </div>
+            <button type="submit">Add</button>
+        </form>
+
+        <div class="books">
+           
         </div>
     </div>
-
     
     <script src="script.js"></script>
 </body>

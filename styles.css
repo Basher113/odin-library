@@ -55,14 +55,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-    display: grid;
-    justify-content: center;
-    width: 100vw;
-    padding: 2em;
+    min-width: 100vw;
     background-color: rgb(240, 240, 240);
     font-family: Arial, Helvetica, sans-serif;
-    gap: 2em;
+    display: grid;
+    justify-content: center;
+    padding: 2em;
 }
+
+.container {
+  
+  display: grid;
+  gap: 2em;
+}
+
+
 
 /* Form Start */
 form {
@@ -110,9 +117,8 @@ input:focus {
 /* Books start */
 .books {
     display: grid;
-    grid-template-columns: 2fr 2fr;
+    grid-template-columns: 1fr 1fr;
     gap: 2em;
-    
 }
 
 .book-card {
@@ -129,10 +135,24 @@ input:focus {
     color: white;
     font-size: 1.2rem;
     font-weight: 700;
+    overflow-x: hidden;
 }
 
 .book-info {
   padding: 1em;
+}
+
+.book-info > * {
+  margin-top: 0.4em;
+}
+
+.book-info div {
+  font-size: 1.1rem;
+}
+
+span {
+  font-weight: 400;
+  font-size: 0.9rem;
 }
 
 
