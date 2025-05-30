@@ -7,7 +7,10 @@ function Book(title, author, pages, haveRead) {
   this.title = title;
   this.author = author;
   this.pages = pages;
-  this.haveRead = haveRead === "on" ? "Have Read.": "Have not read yet."
+  this.haveRead = haveRead? "Yes": "No"
+  this.updateHaveRead = () => {
+    this.haveRead = this.haveRead === "Yes" ? "No" : "Yes";
+  }
 }
 
 function addBookToLibrary(title, author, pages, haveRead) {
@@ -25,10 +28,24 @@ const createBookCardElement = function (book) {
   const bookCardElement = document.createElement("div");
   const bookImageElement = document.createElement("div");
   const bookInfoElement = document.createElement("div");
+
+  const bookTitleContainerElement = document.createElement("div");
+  const bookTitleSpanElement = document.createElement("span");
   const bookTitleElement = document.createElement("h3");
+
+  const bookAuthorContainerElement = document.createElement("div");
+  const bookAuthorSpanElement = document.createElement("span");
   const bookAuthorElement = document.createElement("div");
+
+  const bookPagesContainerElement = document.createElement("div");
+  const bookPagesSpanElement = document.createElement("span");
   const bookPagesElement = document.createElement("div");
+
+  const bookHaveReadContianerElement = document.createElement("div");
+  const bookHaveReadSpanElement = document.createElement("span");
   const bookHaveReadElement = document.createElement("div");
+  const bookUpdateButtonlement = document.createElement("button");
+  
   const bookDeleteButtonElement = document.createElement("button");
 
   // Add class to new elements
@@ -39,21 +56,48 @@ const createBookCardElement = function (book) {
   bookAuthorElement.classList.add("author");
   bookPagesElement.classList.add("pages");
   bookHaveReadElement.classList.add("read");
+  bookHaveReadElement.classList.add(`read-${book.id}`)
+  bookUpdateButtonlement.classList.add("update-button");
   bookDeleteButtonElement.classList.add("delete-button");
 
   // Add content to new elements
   bookImageElement.textContent = "Book Image";
-  bookTitleElement.innerHTML = "<span>Title: </span>" + book.title;
-  bookAuthorElement.innerHTML = "<span>Author: </span>" + book.author;
-  bookPagesElement.innerHTML = "<span>Pages: </span>" + book.pages;
+
+  bookTitleSpanElement.textContent = "Title: ";
+  bookTitleElement.textContent =  book.title;
+
+  bookAuthorSpanElement.textContent = "Author: ";
+  bookAuthorElement.textContent = book.author;
+
+  bookPagesSpanElement.textContent = "Pages: ";
+  bookPagesElement.textContent = book.pages;
+
+  bookHaveReadSpanElement.textContent = "Have read: "
   bookHaveReadElement.textContent = book.haveRead;
-  bookDeleteButtonElement.textContent = "Delete"
-  
+
+  bookUpdateButtonlement.textContent = "Update"
+  bookDeleteButtonElement.textContent = "Delete";
+
   // Appending elements
-  bookInfoElement.appendChild(bookTitleElement);
-  bookInfoElement.appendChild(bookAuthorElement);
-  bookInfoElement.appendChild(bookPagesElement);
-  bookInfoElement.appendChild(bookHaveReadElement);
+  bookTitleContainerElement.appendChild(bookTitleSpanElement);
+  bookTitleContainerElement.appendChild(bookTitleElement);
+  
+  bookAuthorContainerElement.appendChild(bookAuthorSpanElement);
+  bookAuthorContainerElement.appendChild(bookAuthorElement);
+  
+  bookPagesContainerElement.appendChild(bookPagesSpanElement);
+  bookPagesContainerElement.appendChild(bookPagesElement);
+
+  bookHaveReadContianerElement.appendChild(bookHaveReadSpanElement);
+  bookHaveReadContianerElement.appendChild(bookHaveReadElement);
+  bookHaveReadContianerElement.appendChild(bookUpdateButtonlement);
+
+
+
+  bookInfoElement.appendChild(bookTitleContainerElement);
+  bookInfoElement.appendChild(bookAuthorContainerElement);
+  bookInfoElement.appendChild(bookPagesContainerElement);
+  bookInfoElement.appendChild(bookHaveReadContianerElement);
   bookInfoElement.appendChild(bookDeleteButtonElement);
 
   bookCardElement.appendChild(bookImageElement);
@@ -61,7 +105,8 @@ const createBookCardElement = function (book) {
 
     
   bookDeleteButtonElement.setAttribute("data-id", book.id);
-  bookCardElement.setAttribute("id", book.id)
+  bookUpdateButtonlement.setAttribute("data-id", book.id);
+
   return bookCardElement;
 }
 
@@ -76,9 +121,11 @@ formElement.addEventListener("submit", (e) => {
   const bookCardElement = createBookCardElement(newBook);
   
   booksElement.appendChild(bookCardElement);
-  
-  // call so we can delete the new element if delete button is clicked
-  canDeleteElement()
+
+  // call so we can delete or update the new element if delete button is clicked
+  canUpdateDeleteElement();
+
+  formElement.reset();
 })
 
 const renderBooks = function() {
@@ -88,16 +135,33 @@ const renderBooks = function() {
   })
 }
 
-const canDeleteElement = function () {
+const getBook = function (bookId) {
+  return myLibrary.find((book) => book.id === bookId)
+}
+
+const canUpdateDeleteElement = function () {
+  const bookUpdateButtonElements = document.querySelectorAll(".update-button");
+  bookUpdateButtonElements.forEach((updateButton) => {
+    updateButton.addEventListener("click", () => {
+      const bookId = updateButton.dataset.id;
+     
+      // update the book haveRead property
+      const book = getBook(bookId);
+      book.updateHaveRead();
+
+      // Update text content
+      const haveReadElement = document.querySelector(`.read-${bookId}`);
+      haveReadElement.textContent = book.haveRead;
+    })
+  })
+
   const bookDeleteButtonElements = document.querySelectorAll(".delete-button");
   bookDeleteButtonElements.forEach((deleteButton, index) => {
   deleteButton.addEventListener("click", () => {
     // remove from myLibrary
     myLibrary.splice(index, 1);
     const bookId = deleteButton.dataset.id;
-    console.log(bookId);
     const bookCardElement = document.getElementById(bookId);
-    console.log(bookCardElement)
     bookCardElement.remove();
     })
   })
@@ -106,5 +170,5 @@ const canDeleteElement = function () {
 
 
 renderBooks();
-canDeleteElement();
+canUpdateDeleteElement();
 
