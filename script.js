@@ -16,14 +16,14 @@ function Book(title, author, pages, haveRead) {
 function addBookToLibrary(title, author, pages, haveRead) {
   const newBook = new Book(title, author, pages, haveRead);
   myLibrary.push(newBook);
-  return newBook
+  return newBook;
 }
 
 // add default books
 addBookToLibrary("Harry Potter", "J.K Rowling", 450, "off");
-addBookToLibrary("The subtle art of not giving a f*ck", "Mark Manson", 244, "on")
+addBookToLibrary("The subtle art of not giving a f*ck", "Mark Manson", 244, "on");
 
-const createBookCardElement = function (book) {
+function createBookCardElement (book) {
   // Create elements for the book card
   const bookCardElement = document.createElement("div");
   const bookImageElement = document.createElement("div");
@@ -106,7 +106,7 @@ const createBookCardElement = function (book) {
     
   bookDeleteButtonElement.setAttribute("data-id", book.id);
   bookUpdateButtonlement.setAttribute("data-id", book.id);
-
+  bookCardElement.setAttribute("id", book.id);
   return bookCardElement;
 }
 
@@ -117,34 +117,30 @@ formElement.addEventListener("submit", (e) => {
   const newBookAuthor = formData.get("author");
   const newBookPages = formData.get("pages");
   const newBookHaveRead = formData.get("read");
-  const newBook = addBookToLibrary(newBookTitle, newBookAuthor, newBookPages, newBookHaveRead);
-  const bookCardElement = createBookCardElement(newBook);
-  
-  booksElement.appendChild(bookCardElement);
-
-  // call so we can delete or update the new element if delete button is clicked
-  canUpdateDeleteElement();
-
+  addBookToLibrary(newBookTitle, newBookAuthor, newBookPages, newBookHaveRead);
+  renderBooks();
   formElement.reset();
 })
 
 const renderBooks = function() {
+  booksElement.innerHTML = "";
   myLibrary.forEach((book) => {
     const bookCardElement = createBookCardElement(book);
     booksElement.appendChild(bookCardElement);
-  })
+  });
+  activateUpdateAndDeleteButton();
 }
 
-const getBook = function (bookId) {
+function getBook(bookId) {
   return myLibrary.find((book) => book.id === bookId)
 }
 
-const canUpdateDeleteElement = function () {
+function activateUpdateAndDeleteButton () {
   const bookUpdateButtonElements = document.querySelectorAll(".update-button");
   bookUpdateButtonElements.forEach((updateButton) => {
     updateButton.addEventListener("click", () => {
       const bookId = updateButton.dataset.id;
-     
+      
       // update the book haveRead property
       const book = getBook(bookId);
       book.updateHaveRead();
@@ -158,17 +154,13 @@ const canUpdateDeleteElement = function () {
   const bookDeleteButtonElements = document.querySelectorAll(".delete-button");
   bookDeleteButtonElements.forEach((deleteButton, index) => {
   deleteButton.addEventListener("click", () => {
-    // remove from myLibrary
     myLibrary.splice(index, 1);
     const bookId = deleteButton.dataset.id;
     const bookCardElement = document.getElementById(bookId);
+    console.log(bookCardElement, bookId)
     bookCardElement.remove();
     })
   })
 }
 
-
-
 renderBooks();
-canUpdateDeleteElement();
-
