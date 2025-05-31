@@ -2,13 +2,16 @@ const booksElement = document.querySelector(".books");
 const formElement = document.querySelector("form");
 const myLibrary = [];
 
-function Book(title, author, pages, haveRead) {
-  this.id = crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.haveRead = haveRead? "Yes": "No"
-  this.updateHaveRead = () => {
+class Book {
+  constructor(title, author, pages, haveRead) {
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.haveRead = haveRead? "Yes": "No"
+  }
+
+  updateHaveRead() {
     this.haveRead = this.haveRead === "Yes" ? "No" : "Yes";
   }
 }
